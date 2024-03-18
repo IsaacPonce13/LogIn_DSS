@@ -1,0 +1,17 @@
+Comandos para hacer push a git hub
+Verificar el estado de los archivos: Puedes usar el comando git status para ver qué archivos han sido modificados y 
+están listos para ser incluidos en el próximo commit. Asegúrate de que los cambios que deseas incluir estén listados aquí.
+    $ git status
+Agregar archivos al área de preparación: Utiliza el comando git add <nombre_del_archivo> o git add . para agregar los 
+archivos modificados al área de preparación. Reemplaza <nombre_del_archivo> con el nombre del archivo que deseas incluir 
+en el commit, o usa . para incluir todos los archivos modificados.
+    $ git add <nombre_del_archivo>   # O    //Agrega archivos especificos
+    $ git add .                             //Agrega todos los archivos
+
+Realizar el commit: Después de agregar los archivos al área de preparación, utiliza el comando git commit -m "mensaje del commit" 
+para realizar el commit. Reemplaza "mensaje del commit" con un mensaje descriptivo que explique los cambios que has realizado.
+    $ git commit -m "Mensaje descriptivo del commit"
+
+Hacer push de los cambios: Si deseas enviar los cambios a un repositorio remoto en GitHub, utiliza el comando git push origin <nombre_de_la_rama>
+ para hacer push de los cambios a la rama correspondiente en el repositorio remoto. Reemplaza <nombre_de_la_rama> con el nombre de la rama en la que estás trabajando.
+    $ git push origin <nombre_de_la_rama>

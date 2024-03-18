@@ -44,51 +44,44 @@
   <tr>
     <th>Nombre</th>
     <th>Edad</th>
-    <th>Correo</th>
+    <th>Contraseña</th>
+    <th>Estado</th>
     <th>Acceso</th>
   </tr>
+  <?php
+    // Incluir archivo de conexión a la base de datos
+    include('conexion.php');
+    
+    // Consulta para obtener los usuarios desde la tabla usuarios
+    $consulta = "SELECT * FROM usuarios";
+    $resultado = mysqli_query($conn, $consulta);
+
+    // Renderizar filas de la tabla con los datos de la base de datos
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+      echo "<tr>";
+      echo "<td>" . $fila['Nombre'] . "</td>";
+      echo "<td>" . $fila['Edad'] . "</td>";
+      echo "<td>" . $fila['Contraseña'] . "</td>";
+      echo "<td>" . ($fila['Estado'] ? 'Activo' : 'Inactivo') . "</td>";
+      echo "<td><button onclick=\"toggleBloqueado(this)\">" . ($fila['Estado'] ? 'Bloquear' : 'Desbloquear') . "</button></td>";
+      echo "</tr>";
+    }
+
+    // Liberar resultado y cerrar conexión
+    mysqli_free_result($resultado);
+    mysqli_close($conn);
+  ?>
 </table>
 
 <button style="margin: 20px;">Cerrar sesión</button>
 
 <script>
-  // Array de usuarios inventados
-  const usuarios = [
-    { nombre: "Juan", edad: 30, correo: "juan@example.com" },
-    { nombre: "María", edad: 25, correo: "maria@example.com" },
-    { nombre: "Pedro", edad: 35, correo: "pedro@example.com" }
-  ];
-
-  // Función para renderizar la tabla de usuarios
-  function renderizarUsuarios() {
-    const table = document.getElementById("userTable");
-    table.innerHTML = `
-      <tr>
-        <th>Nombre</th>
-        <th>Edad</th>
-        <th>Correo</th>
-        <th>Acceso</th>
-      </tr>
-    `;
-    usuarios.forEach(usuario => {
-      const row = `
-        <tr>
-          <td>${usuario.nombre}</td>
-          <td>${usuario.edad}</td>
-          <td>${usuario.correo}</td>
-          <td><button onclick="toggleBloqueado(this)">Bloquear</button></td>
-        </tr>
-      `;
-      table.innerHTML += row;
-    });
-  }
-
   // Función para alternar entre bloquear y desbloquear usuarios
   function toggleBloqueado(button) {
     const usuarioRow = button.parentElement.parentElement;
     const nombreUsuario = usuarioRow.cells[0].innerText;
-    const usuario = usuarios.find(user => user.nombre === nombreUsuario);
-
+    // No necesitas buscar el usuario en JavaScript, ya que la fila de la tabla ya contiene todos los datos necesarios
+    
     if (button.textContent === "Bloquear") {
       button.textContent = "Desbloquear";
       button.style.backgroundColor = "red";
@@ -99,9 +92,6 @@
       usuarioRow.style.backgroundColor = ""; // Restaura el color de fondo a su estado original
     }
   }
-
-  // Llama a la función para renderizar la tabla al cargar la página
-  renderizarUsuarios();
 </script>
 
 </body>
