@@ -1,26 +1,33 @@
 <?php
-    $usuario = $_POST['usuario'];
-    $contraseña = $_POST['Contraseña'];
-    session_start();
+session_start();
+
+$usuario = $_POST['usuario'];
+$contraseña = $_POST['Contraseña'];
+
+include('conexion.php');
+
+// Consulta para verificar en la tabla de usuarios
+$consulta_usuarios = "SELECT * FROM usuarios WHERE Nombre = '$usuario' AND Contraseña = '$contraseña'";
+$resultado_usuarios = mysqli_query($conn, $consulta_usuarios);
+$filas_usuarios = mysqli_num_rows($resultado_usuarios);
+
+// Consulta para verificar en la tabla de administradores
+$consulta_admins = "SELECT * FROM admins WHERE Ncuenta = '$usuario' AND Contraseña = '$contraseña'";
+$resultado_admins = mysqli_query($conn, $consulta_admins);
+$filas_admins = mysqli_num_rows($resultado_admins);
+
+if ($filas_usuarios) {
     $_SESSION['Nombre'] = $usuario;
+    header("location: Inicio.php");
+} elseif ($filas_admins) {
+    $_SESSION['Nombre'] = $usuario;
+    header("location: Vadmin.php");
+} else {
+    include("Login.php");
+    echo '<h1 class="bad">ERROR EN LA AUTENTIFICACIÓN</h1>';
+}
 
-    include('conexion.php');
-
-    $consulta="SELECT * FROM usuarios WHERE Nombre = '$usuario' AND Contraseña = '$contraseña'";
-    $resultado = mysqli_query($conn, $consulta);
-
-    $filas = mysqli_num_rows($resultado);
-
-    if ($filas) {
-        header("location:Vadmin.php");
-    }else {
-        ?>
-        <?php
-        include("Login.php");
-        ?>
-        <h1 Class="bad">ERROR EN LA AUTENTIFICACIÓN</h1>
-        <?php
-    }
-    mysqli_free_result($resultado);
-    mysqli_close($conn);
+mysqli_free_result($resultado_usuarios);
+mysqli_free_result($resultado_admins);
+mysqli_close($conn);
 ?>
