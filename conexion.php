@@ -10,4 +10,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 // echo "Connected successfully";
+function cerrarConexion($conn) {
+    mysqli_close($conn);
+}
 ?>
