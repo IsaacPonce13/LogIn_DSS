@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="css/Formularios.css">
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit"async defer></script>
+    </head>
+    <body>
+        <form id="registroForm" action="RegistrarUsr.php" method="post">
+            <h2>Registro de Usuario</h2>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese un nombre de usuario" required>
+            
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" min="1" max="150" placeholder="Ingrese su edad" required>
+            
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" id="contraseña" name="contraseña" placeholder="creé una contraseña para su cuenta" required>
+            
+            <button type="submit">Registrar</button>
+            <button id="BtnCancelarR">Cancelar</button>
+            <div class="form-group">
+                <div id="recaptcha" class="g-recaptcha"></div>
+            </div>
+        </form>
+
+        <!-- Codigo para agregar el recaptcha -->
+        <script>
+            grecaptcha.ready(function () {
+                grecaptcha.render("recaptcha", {
+                sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+                });
+            });
+
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                grecaptcha.execute();
+            });
+
+            grecaptcha.render("recaptcha", {
+                sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+                callback: function (token) {
+                    submitBtn.disabled = false;
+                    submitBtn.addEventListener("click", () => {
+                        // Realizar la acción de inicio de sesión aquí
+                        console.log("Inicio de sesión exitoso");
+                    });
+                },
+            });
+        </script>
+    </body>
+</html>

@@ -18,12 +18,12 @@ $filas_admins = mysqli_num_rows($resultado_admins);
 
 if ($filas_usuarios) {
     $_SESSION['Nombre'] = $usuario;
-    header("location: Inicio.php");
+    header("location: Inicio.html");
 } elseif ($filas_admins) {
     $_SESSION['Nombre'] = $usuario;
-    header("location: Vadmin.php");
+    header("location: Vadmin.html");
 } else {
-    include("Login.php");
+    include("Login.html");
     echo '<h1 class="bad">ERROR EN LA AUTENTIFICACIÓN</h1>';
 }
 

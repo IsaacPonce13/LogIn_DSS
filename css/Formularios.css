@@ -49,3 +49,13 @@ button:hover {
     text-align: center;
     margin-top: 10px;
 }
+
+.bad {
+    color: #ff0000; /* Color rojo para los mensajes de error */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.good {
+    color: #008000; /* Color verde para los mensajes exitosos */
+    font-weight: bold; /* Texto en negrita */
+}
