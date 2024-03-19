@@ -32,7 +32,7 @@
     margin-top: 5px;
 }
     h2 {
-              font-family: Arial, sans-serif;
+      font-family: Arial, sans-serif;
     }
   </style>
 </head>
@@ -63,7 +63,7 @@
       echo "<td>" . $fila['Edad'] . "</td>";
       echo "<td>" . $fila['Contraseña'] . "</td>";
       echo "<td>" . ($fila['Estado'] ? 'Activo' : 'Inactivo') . "</td>";
-      echo "<td><button onclick="toggleBloqueado(this)">" . ($fila['Estado'] ? 'Bloquear' : 'Desbloquear') . "</button></td>";
+      echo "<td><button onclick=\"toggleBloqueado(this)\">" . ($fila['Estado'] ? 'Bloquear' : 'Desbloquear') . "</button></td>";
       echo "</tr>";
     }
 
@@ -73,8 +73,16 @@
   ?>
 </table>
 
-<button style="margin: 20px;">Cerrar sesión</button>
-
+<button style="margin: 20px;" onclick="cerrarSesion()">Cerrar sesión</button>
+<script>
+  function cerrarSesion() {
+      // 
+      //     mysqli_close($conn); // Cierra la conexión con la base de datos
+      // 
+      // Redirigir al usuario a la página de inicio de sesión
+      window.location.href = "Login.html"; // Reemplaza "login.html" con la URL de tu página de inicio de sesión
+  }
+</script>
 <script>
   // Función para alternar entre bloquear y desbloquear usuarios
   function toggleBloqueado(button) {

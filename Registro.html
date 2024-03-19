@@ -19,7 +19,7 @@
             <label for="contraseña">Contraseña:</label>
             <input type="password" id="contraseña" name="contraseña" placeholder="Agregue una contraseña para su cuenta" required>
             
-            <button id="RegBtn" type="submit" disabled>Registrar</button>
+            <button id="submitBtn" type="submit" disabled>Registrar</button>
             <button id="BtnCancelarR" type="button">Cancelar</button>
             
             <div class="form-group">
@@ -37,15 +37,15 @@
         <!-- Codigo para agregar el recaptcha -->
         <script>
             const form = document.getElementById("registroForm");
-            const RegBtn = document.getElementById("RegBtn");
-    
+            const submitBtn = document.getElementById("submitBtn");
+
             grecaptcha.ready(function () {
                 grecaptcha.render("recaptcha", {
-                    sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+                    sitekey: "6Lcyep0pAAAAAIoivvLTCHWlDyszuGlHKaaNSIVB",
                     callback: function (token) {
                         // Habilitar el botón de inicio de sesión después de que se complete el reCAPTCHA
-                        RegBtn.disabled = false;
-                        RegBtn.classList.add("enabled"); // Agregar clase para cambiar el color del botón
+                        submitBtn.disabled = false;
+                        submitBtn.classList.add("enabled"); // Agregar clase para cambiar el color del botón
                     },
                 });
             });

@@ -1,3 +1,8 @@
+<?php
+include('conexion.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,10 +32,9 @@
     <script>
         const form = document.getElementById("loginForm");
         const submitBtn = document.getElementById("submitBtn");
-
         grecaptcha.ready(function () {
             grecaptcha.render("recaptcha", {
-                sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+                sitekey: "6Lcyep0pAAAAAIoivvLTCHWlDyszuGlHKaaNSIVB",
                 callback: function (token) {
                     // Habilitar el botón de inicio de sesión después de que se complete el reCAPTCHA
                     submitBtn.disabled = false;
