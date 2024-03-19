@@ -20,12 +20,19 @@
             <input type="password" id="contraseña" name="contraseña" placeholder="creé una contraseña para su cuenta" required>
             
             <button type="submit">Registrar</button>
-            <button id="BtnCancelarR">Cancelar</button>
+            <button id="BtnCancelarR" type="button">Cancelar</button>
             <div class="form-group">
                 <div id="recaptcha" class="g-recaptcha"></div>
             </div>
         </form>
 
+        <!-- Script para cancelar el registro y regresar al login -->
+        <script>
+            document.getElementById("BtnCancelarR").addEventListener("click", function() {
+                // Cambiar la ubicación de la página cuando se hace clic en el botón
+                window.location.href = "Login.html";
+            });
+        </script>
         <!-- Codigo para agregar el recaptcha -->
         <script>
             grecaptcha.ready(function () {

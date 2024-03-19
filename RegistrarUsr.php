@@ -15,7 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($resultado_existencia) > 0) {
         // El usuario ya existe, mostrar mensaje de error
-        echo '<h1 class="bad">El usuario ya existe. Por favor, elige otro nombre de usuario.</h1>';
+        include("Registro.html");
+        echo '<br><h1 class="bad">El usuario ya existe. Por favor, elige otro nombre de usuario.</h1><br>';
     } else {
         // El usuario no existe, proceder con la inserción
         // Preparar la consulta SQL para insertar el nuevo usuario
@@ -23,9 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Ejecutar la consulta
         if (mysqli_query($conn, $consulta_insertar)) {
-            echo '<h1 class="good"> Usuario registrado con exito </h1>';
+            include("Registro.html");
+            echo '<br><h1 class="good"> Usuario registrado con exito </h1><br>';
         } else {
-            echo '<h1 class="bad">ERROR EN LA AUTENTIFICACIÓN</h1>'. mysqli_error($conn);
+            include("Registro.html");
+            echo '<br><h1 class="bad">ERROR EN LA AUTENTIFICACIÓN</h1><br>'. mysqli_error($conn);
         }
     }
 

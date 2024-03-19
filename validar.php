@@ -24,7 +24,7 @@ if ($filas_usuarios) {
     header("location: Vadmin.html");
 } else {
     include("Login.html");
-    echo '<h1 class="bad">ERROR EN LA AUTENTIFICACIÓN</h1>';
+    echo '<br><h1 class="bad">ERROR EN LA AUTENTIFICACIÓN</h1><br>';
 }
 
 mysqli_free_result($resultado_usuarios);
