@@ -59,3 +59,13 @@ button:hover {
     color: #008000; /* Color verde para los mensajes exitosos */
     font-weight: bold; /* Texto en negrita */
 }
+#submitBtn {
+    background-color: gray; /* Color de fondo inicial */
+    color: white; /* Color de texto */
+    cursor: not-allowed; /* Cursor no permitido cuando está deshabilitado */
+}
+
+#submitBtn.enabled {
+    background-color: green; /* Color de fondo cuando está habilitado */
+    cursor: pointer; /* Cambiar el cursor a puntero cuando está habilitado */
+}

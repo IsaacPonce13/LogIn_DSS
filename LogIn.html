@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión y Registrar</title>
     <link rel="stylesheet" href="css/Formularios.css">
-    <script src="https://www.google.com/recaptcha/api.js?render=explicit"async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
 </head>
 <body>
     <form id="loginForm" action="validar.php" method="post">
         <h2>Iniciar Sesión</h2>
         <label for="usuario">Usuario:</label>
         <input type="text" id="username" name="usuario" required placeholder="Usuario">
-
+    
         <label for="Contraseña">Contraseña:</label>
         <input type="password" id="password" name="Contraseña" required placeholder="Contraseña">
-        <!-- onclick="login()" -->
-        <button type="submit" >Iniciar sesión</button>
-
+        
+        <button type="submit" id="submitBtn" disabled>Iniciar sesión</button> <!-- Botón deshabilitado por defecto -->
+    
         <div class="form-group">
             <div id="recaptcha" class="g-recaptcha"></div>
         </div>
@@ -25,26 +25,18 @@
 
     <!-- Codigo para agregar el recaptcha -->
     <script>
+        const form = document.getElementById("loginForm");
+        const submitBtn = document.getElementById("submitBtn");
+
         grecaptcha.ready(function () {
             grecaptcha.render("recaptcha", {
-            sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+                sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+                callback: function (token) {
+                    // Habilitar el botón de inicio de sesión después de que se complete el reCAPTCHA
+                    submitBtn.disabled = false;
+                    submitBtn.classList.add("enabled"); // Agregar clase para cambiar el color del botón
+                },
             });
-        });
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            grecaptcha.execute();
-        });
-
-        grecaptcha.render("recaptcha", {
-            sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
-            callback: function (token) {
-                submitBtn.disabled = false;
-                submitBtn.addEventListener("click", () => {
-                    // Realizar la acción de inicio de sesión aquí
-                    console.log("Inicio de sesión exitoso");
-                });
-            },
         });
     </script>
 
