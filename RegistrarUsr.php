@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // El usuario no existe, proceder con la inserción
         // Preparar la consulta SQL para insertar el nuevo usuario
-        $consulta_insertar = "INSERT INTO usuarios (Nombre, Edad, Contraseña, Estado) VALUES ('$nombre', '$edad', '$contraseña', 1)";
+        $hash = hash('sha256', $contraseña);
+        $consulta_insertar = "INSERT INTO usuarios (Nombre, Edad, Contraseña, Estado) VALUES ('$nombre', '$edad', '$hash', 0)";
         
         // Ejecutar la consulta
         if (mysqli_query($conn, $consulta_insertar)) {

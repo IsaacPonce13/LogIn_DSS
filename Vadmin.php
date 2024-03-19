@@ -31,6 +31,16 @@
     width: 30%;
     margin-top: 5px;
 }
+#buttonT {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 5px;
+}
     h2 {
       font-family: Arial, sans-serif;
     }
@@ -46,6 +56,7 @@
     <th>Edad</th>
     <th>Contraseña</th>
     <th>Estado</th>
+    <th>Editar</th>
     <th>Acceso</th>
   </tr>
   <?php
@@ -63,7 +74,8 @@
       echo "<td>" . $fila['Edad'] . "</td>";
       echo "<td>" . $fila['Contraseña'] . "</td>";
       echo "<td>" . ($fila['Estado'] ? 'Activo' : 'Inactivo') . "</td>";
-      echo "<td><button onclick=\"toggleBloqueado(this)\">" . ($fila['Estado'] ? 'Bloquear' : 'Desbloquear') . "</button></td>";
+      echo "<td><button id='buttonT' onclick=\"editarUsuario('" . $fila['Nombre'] . "', " . $fila['Edad'] . ", '" . $fila['Contraseña'] . "','" . $fila['Estado'] . "')\">Editar</button></td>";
+      echo "<td><button id='buttonT' onclick=\"toggleBloqueado(this)\">" . ($fila['Estado'] ? 'Bloquear' : 'Desbloquear') . "</button></td>";
       echo "</tr>";
     }
 
@@ -74,15 +86,30 @@
 </table>
 
 <button style="margin: 20px;" onclick="cerrarSesion()">Cerrar sesión</button>
-<script>
-  function cerrarSesion() {
-      // 
-      //     mysqli_close($conn); // Cierra la conexión con la base de datos
-      // 
-      // Redirigir al usuario a la página de inicio de sesión
-      window.location.href = "Login.html"; // Reemplaza "login.html" con la URL de tu página de inicio de sesión
-  }
-</script>
+
+<!-- Formulario de edición de usuario -->
+<div id="editarUsuarioForm" style="display: none;">
+  <h2>Editar Usuario</h2>
+  <form id="editUserForm" action="actualizar_usuario.php" method="post">
+    <label for="nombreEdit">Nombre:</label>
+    <input type="text" id="nombreEdit" name="nombreEdit" required>
+    
+    <label for="edadEdit">Edad:</label>
+    <input type="number" id="edadEdit" name="edadEdit" min="1" max="150" required>
+    
+    <label for="contraseñaEdit">Contraseña:</label>
+    <input type="password" id="contraseñaEdit" name="contraseñaEdit" required>
+    
+    <label for="estadoEdit">Estado:</label>
+    <select id="estadoEdit" name="estadoEdit">
+      <option value="1">Activo</option>
+      <option value="0">Inactivo</option>
+    </select> <br>
+    <button type="submit">Guardar cambios</button>
+    <a href="Vadmin.php"><button type="button">Cancelar</button></a>
+  </form>
+</div>
+
 <script>
   // Función para alternar entre bloquear y desbloquear usuarios
   function toggleBloqueado(button) {
@@ -99,6 +126,21 @@
       button.style.backgroundColor = "green";
       usuarioRow.style.backgroundColor = ""; // Restaura el color de fondo a su estado original
     }
+  }
+
+  // Función para mostrar el formulario de edición con los datos del usuario correspondiente
+  function editarUsuario(nombre, edad, contraseña,estado) {
+    document.getElementById("nombreEdit").value = nombre;
+    document.getElementById("edadEdit").value = edad;
+    document.getElementById("contraseñaEdit").value = contraseña;
+    document.getElementById("estadoEdit").value = estado;
+    document.getElementById("editarUsuarioForm").style.display = "block";
+  }
+
+  // Función para cerrar sesión
+  function cerrarSesion() {
+    // Redirigir al usuario a la página de inicio de sesión
+    window.location.href = "Login.php"; // Reemplaza "login.html" con la URL de tu página de inicio de sesión
   }
 </script>
 

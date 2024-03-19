@@ -6,8 +6,9 @@ $contraseña = $_POST['Contraseña'];
 
 include('conexion.php');
 
+$hash = hash('sha256', $contraseña);
 // Consulta para verificar en la tabla de usuarios
-$consulta_usuarios = "SELECT * FROM usuarios WHERE Nombre = '$usuario' AND Contraseña = '$contraseña'";
+$consulta_usuarios = "SELECT * FROM usuarios WHERE Nombre = '$usuario' AND Contraseña = '$hash'";
 $resultado_usuarios = mysqli_query($conn, $consulta_usuarios);
 $filas_usuarios = mysqli_num_rows($resultado_usuarios);
 
@@ -16,14 +17,21 @@ $consulta_admins = "SELECT * FROM admins WHERE Ncuenta = '$usuario' AND Contrase
 $resultado_admins = mysqli_query($conn, $consulta_admins);
 $filas_admins = mysqli_num_rows($resultado_admins);
 
+
 if ($filas_usuarios) {
-    $_SESSION['Nombre'] = $usuario;
-    header("location: Inicio.php");
+    $usuario_data = mysqli_fetch_assoc($resultado_usuarios);
+    if($usuario_data['Estado']==0){
+        include("Login.php");
+        echo '<br><h1 class="bad">Espera a que el admin active tu cuenta</h1><br>';
+    }else {
+        $_SESSION['Nombre'] = $usuario; 
+        header("location: Inicio.php");
+    }   
 } elseif ($filas_admins) {
     $_SESSION['Nombre'] = $usuario;
     header("location: Vadmin.php");
-} else {
-    include("Login.html");
+}else{
+    include("Login.php");
     echo '<br><h1 class="bad">ERROR EN LA AUTENTIFICACIÓN</h1><br>';
 }
 
