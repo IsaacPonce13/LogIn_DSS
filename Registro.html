@@ -1,54 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formulario de Registro</title>
-    <link rel="stylesheet" href="css/Formularios.css">
+    <link rel="stylesheet" href="css/Formularios.css" />
     <script src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
-    </head>
-    <body>
-        <form id="registroForm" action="RegistrarUsr.php" method="post">
-            <h2>Registro de Usuario</h2>
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Ingrese un nombre de usuario" required>
-            
-            <label for="edad">Edad:</label>
-            <input type="number" id="edad" name="edad" min="1" max="150" placeholder="Ingrese su edad" required>
-            
-            <label for="contraseña">Contraseña:</label>
-            <input type="password" id="contraseña" name="contraseña" placeholder="Agregue una contraseña para su cuenta" required>
-            
-            <button id="submitBtn" type="submit" disabled>Registrar</button>
-            <button id="BtnCancelarR" type="button">Cancelar</button>
-            
-            <div class="form-group">
-                <div id="recaptcha" class="g-recaptcha"></div>
-            </div>
-        </form>
+  </head>
+  <body>
+    <form id="registroForm" action="RegistrarUsr.php" method="post">
+      <h2>Registro de Usuario</h2>
+      <label for="nombre">Nombre:</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        placeholder="Ingrese un nombre de usuario"
+        required
+      />
 
-        <!-- Script para cancelar el registro y regresar al login -->
-        <script>
-            document.getElementById("BtnCancelarR").addEventListener("click", function() {
-                // Cambiar la ubicación de la página cuando se hace clic en el botón
-                window.location.href = "Login.php";
-            });
-        </script>
-        <!-- Codigo para agregar el recaptcha -->
-        <script>
-            const form = document.getElementById("registroForm");
-            const submitBtn = document.getElementById("submitBtn");
+      <label for="edad">Edad:</label>
+      <input
+        type="number"
+        id="edad"
+        name="edad"
+        min="1"
+        max="150"
+        placeholder="Ingrese su edad"
+        required
+      />
 
-            grecaptcha.ready(function () {
-                grecaptcha.render("recaptcha", {
-                    sitekey: "6Lcyep0pAAAAAIoivvLTCHWlDyszuGlHKaaNSIVB",
-                    callback: function (token) {
-                        // Habilitar el botón de inicio de sesión después de que se complete el reCAPTCHA
-                        submitBtn.disabled = false;
-                        submitBtn.classList.add("enabled"); // Agregar clase para cambiar el color del botón
-                    },
-                });
-            });
-        </script>
-    </body>
+      <label for="contraseña">Contraseña:</label>
+      <input
+        type="password"
+        id="contraseña"
+        name="contraseña"
+        placeholder="Agregue una contraseña para su cuenta"
+        required
+      />
+
+      <button id="submitBtn" type="submit" disabled>Registrar</button>
+      <button id="BtnCancelarR" type="button">Cancelar</button>
+
+      <div class="form-group">
+        <div id="recaptcha" class="g-recaptcha"></div>
+      </div>
+    </form>
+
+    <!-- Script para cancelar el registro y regresar al Index -->
+    <script>
+      document
+        .getElementById("BtnCancelarR")
+        .addEventListener("click", function () {
+          // Cambiar la ubicación de la página cuando se hace clic en el botón
+          window.location.href = "Index.php";
+        });
+    </script>
+    <!-- Codigo para agregar el recaptcha -->
+    <script>
+      const form = document.getElementById("registroForm");
+      const submitBtn = document.getElementById("submitBtn");
+
+      grecaptcha.ready(function () {
+        grecaptcha.render("recaptcha", {
+          sitekey: "6Lcyep0pAAAAAIoivvLTCHWlDyszuGlHKaaNSIVB",
+          callback: function (token) {
+            // Habilitar el botón de inicio de sesión después de que se complete el reCAPTCHA
+            submitBtn.disabled = false;
+            submitBtn.classList.add("enabled"); // Agregar clase para cambiar el color del botón
+          },
+        });
+      });
+    </script>
+  </body>
 </html>

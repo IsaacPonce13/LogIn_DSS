@@ -1,14 +1,10 @@
 <?php
-session_start(); // Inicia la sesión si no está iniciada
+
 
 // Incluye el archivo de conexión a la base de datos
+include('sesiones.php');
 include 'conexion.php';
 
-// Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['Nombre'])) {
-    header("location: Login.php");
-    exit();
-}
 
 // Accede al nombre de usuario desde la variable de sesión
 $nombreUsuario = $_SESSION['Nombre'];

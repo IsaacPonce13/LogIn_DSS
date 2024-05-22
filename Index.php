@@ -1,6 +1,7 @@
-
-
-
+<?php 
+ session_start();
+ $_SESSION['Nombre']=NULL
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

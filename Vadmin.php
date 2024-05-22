@@ -61,6 +61,7 @@
   </tr>
   <?php
     // Incluir archivo de conexión a la base de datos
+    include('sesiones.php');
     include('conexion.php');
     
     // Consulta para obtener los usuarios desde la tabla usuarios
@@ -84,9 +85,41 @@
     mysqli_close($conn);
   ?>
 </table>
+<table id="productTable" style="margin: 20px;">
+  <tr>
+    <th>Nombre</th>
+    <th>Precio</th>
+    <th>Cantidad</th>
+    <th>Acciones</th>
+  </tr>
+  <?php
+    // Incluir archivo de conexión a la base de datos
+    include('conexion.php');
+    
+    // Consulta para obtener los productos desde la tabla productos
+    $consulta = "SELECT * FROM productos";
+    $resultado = mysqli_query($conn, $consulta);
+
+    // Renderizar filas de la tabla con los datos de la base de datos
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+      echo "<tr>";
+      echo "<td>" . $fila['Nombre'] . "</td>";
+      echo "<td>$" . $fila['Precio'] . "</td>";
+      echo "<td>" . $fila['Cantidad'] . "</td>";
+      echo "<td>";
+      echo "<button onclick=\"editarProducto('" . $fila['Nombre'] . "', " . $fila['Precio'] . ", " . $fila['Cantidad'] . ")\">Editar</button>";
+      
+      echo "</tr>";
+    }
+    mysqli_free_result($resultado);
+    mysqli_close($conn);
+  ?>
+</table>
+
+
 
 <button style="margin: 20px;" onclick="cerrarSesion()">Cerrar sesión</button>
-
+<button onclick="mostrarFormularioAgregar()">Agregar Producto</button>";
 <!-- Formulario de edición de usuario -->
 <div id="editarUsuarioForm" style="display: none;">
   <h2>Editar Usuario</h2>
@@ -109,6 +142,42 @@
     <a href="Vadmin.php"><button type="button">Cancelar</button></a>
   </form>
 </div>
+
+<!-- Formulario de edición de Productes -->
+<div id="editarProductoForm" style="display: none;">
+  <h2>Editar Producto</h2>
+  <form id="editProductForm" action="actualizar_producto.php" method="post">
+    <label for="nombreEdit">Nombre:</label>
+    <input type="text" id="nombreEdit" name="nombreEdit"  required>
+    
+    <label for="precioEdit">Precio:</label>
+    <input type="number" id="precioEdit" name="precioEdit" min="0.01" step="0.01" required>
+    
+    <label for="cantidadEdit">Cantidad:</label>
+    <input type="number" id="cantidadEdit" name="cantidadEdit" min="1" required>
+    
+    <button type="submit">Guardar cambios</button>
+    <a href="Vadmin.php"><button type="button">Cancelar</button></a>
+  </form>
+</div>
+
+<div id="agregarProductoForm" style="display: none;">
+  <h2>Agregar Producto</h2>
+  <form id="addProductForm" action="agregar_producto.php" method="post">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+    
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio" name="precio" min="0.01" step="0.01" required>
+    
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" id="cantidad" name="cantidad" min="1" required>
+    
+    <button type="submit">Agregar Producto</button>
+    <button type="button" onclick="ocultarFormularioAgregar()">Cancelar</button>
+  </form>
+</div>
+
 
 <script>
   // Función para alternar entre bloquear y desbloquear usuarios
@@ -136,12 +205,28 @@
     document.getElementById("estadoEdit").value = estado;
     document.getElementById("editarUsuarioForm").style.display = "block";
   }
+  function editarProducto(nombre, precio, cantidad) {
+    document.getElementById("nombreEdit").value = nombre;
+    document.getElementById("precioEdit").value = precio;
+    document.getElementById("cantidadEdit").value = cantidad;
+    document.getElementById("editarProductoForm").style.display = "block";
+}
+function mostrarFormularioAgregar() {
+    // Muestra el formulario de agregar producto
+    document.getElementById("agregarProductoForm").style.display = "block";
+}
+
+
 
   // Función para cerrar sesión
   function cerrarSesion() {
-    // Redirigir al usuario a la página de inicio de sesión
-    window.location.href = "Login.php"; // Reemplaza "login.html" con la URL de tu página de inicio de sesión
-  }
+  // Eliminar la información de la sesión del cliente (cookies o almacenamiento local)
+  // Ejemplo: eliminar el token de sesión almacenado en una cookie
+  document.cookie = "tokenSesion=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+
+  // Redirigir al usuario a la página de inicio de sesión
+  window.location.href = "index.php"; // Reemplaza "login.php" con la URL de tu página de login
+}
 </script>
 
 </body>
